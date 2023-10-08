@@ -46,7 +46,7 @@ export default function Courses() {
           setCourses(courseData)
           
           console.log("students",courseData)
-    
+          
         } catch (error) {
           console.log("error",error);
         }
@@ -84,8 +84,8 @@ export default function Courses() {
 
 <div className="grid lg:grid-cols-3 gap-5 mb-16">
   <div className="rounded text-white text-center pt-5 text-2xl font-bold bg-green-600 h-40 shadow-sm">Total Students <br/> {Student.length}</div>
-  <div className="rounded text-white text-center pt-5 text-2xl font-bold bg-red-600 h-40 shadow-sm">Total Courses <br/>{courses.length}</div>
-  <div className="rounded text-white text-center pt-5 text-2xl font-bold bg-blue-600 h-40 shadow-sm">Attendence</div>
+  <div className="rounded text-white text-center pt-5 text-2xl font-bold bg-red-600 h-40 shadow-sm">Total  Courses <br/>{courses.length}</div>
+  <div className="rounded text-white text-center pt-5 text-2xl font-bold bg-blue-600 h-40 shadow-sm">Attendence <br/> 10</div>
 </div>
 <div className="grid col-1 bg-white h-auto shadow-sm">
 <div className='py-8 '>

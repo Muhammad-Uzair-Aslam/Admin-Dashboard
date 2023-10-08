@@ -33,6 +33,7 @@ export default function Student() {
           setStudents(studentsData)
           
           console.log("students",studentsData)
+          return students
     
         } catch (error) {
           console.log("error",error);
@@ -72,8 +73,8 @@ export default function Student() {
 
 <div className="grid lg:grid-cols-3 gap-5 mb-16">
   <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-green-600 h-40 shadow-sm">Total Students <br/>{students.length}</div>
-  <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-red-600 h-40 shadow-sm">Total Number of Courses {Courses.length}</div>
-  <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-blue-600 h-40 shadow-sm">Attendence</div>
+  <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-red-600 h-40 shadow-sm">Total Courses <br/>{Courses.length}</div>
+  <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-blue-600 h-40 shadow-sm">Attendence <br/>20</div>
 </div>
 <div className="grid col-1 bg-white h-auto shadow-sm pb-20">
     <div className=" my-5 flex items-center justify-center">
