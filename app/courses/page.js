@@ -122,8 +122,8 @@ export default function Courses() {
             </tr>
         </thead>
         <tbody>
-            {courses.map((course)=>{console.log(course)
-                return<tr class="bg-white dark:bg-gray-800">
+            {courses.map((course,i)=>{console.log(course)
+                return<tr key={i} class="bg-white dark:bg-gray-800">
                 <td scope="row" class="px-4 py-4   dark:text-white">
                     {course.id}
                 </td>

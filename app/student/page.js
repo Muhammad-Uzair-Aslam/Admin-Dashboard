@@ -104,8 +104,8 @@ export default function Student() {
             </tr>
         </thead>
         <tbody>
-            {students.map((student)=>{console.log(student)
-                return<tr class="bg-white dark:bg-gray-800">
+            {students.map((student,i)=>{console.log(student)
+                return<tr key={i} class="bg-white dark:bg-gray-800">
                 <td scope="row" class="px-4 py-4   dark:text-white">
                     {student.id}
                 </td>
