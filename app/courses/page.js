@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react"
 import { getDocs, collection, query,addDoc, where, deleteDoc, doc, updateDoc} from "firebase/firestore"
 import { db } from "@/config/firebase"
-import AddStudent from '../addStudent/page';
 import React from 'react'
 import Headercard from '../(components)/headercard'
 import Student from "../student/page";
@@ -25,9 +24,25 @@ export default function Courses() {
             alert("please Fill all field")
         }
         else{
-        await addDoc(collectionName,course)
+          let matchCode=false;
+          for( const crs of courses)
+          {
+            if(crs.courseCode===course.courseCode)
+            {
+              matchCode=true;
+              break;
+            }
+          }
+          if(matchCode)
+          {
+            alert("course Code already Exist")
+          }
+          else{
+            await addDoc(collectionName,course)
         console.log("document added");
-        await fetchDocs()}
+        await fetchDocs()
+          }
+        }
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -70,7 +85,7 @@ export default function Courses() {
         try {
           const docRef = doc(db,"course", id)
           await updateDoc(docRef, {
-            course:"WMA"
+            courseName:"WMA"
           })
           fetchDocs()
           setLoading(false)
@@ -104,9 +119,7 @@ export default function Courses() {
     <table class="w-full text-sm text-left text-black dark:text-gray-400">
         <thead class="text-md bg-black text-white  uppercase dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Id
-                </th>
+                
                 <th scope="col" class="px-6 py-3">
                     Course Name
                 </th>
@@ -124,9 +137,6 @@ export default function Courses() {
         <tbody>
             {courses.map((course,i)=>{console.log(course)
                 return<tr key={i} class="bg-white dark:bg-gray-800">
-                <td scope="row" class="px-4 py-4   dark:text-white">
-                    {course.id}
-                </td>
                 <td class="px-4 py-4">
                     {course.courseName}
                 </td>
