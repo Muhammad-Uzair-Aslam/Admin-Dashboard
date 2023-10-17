@@ -12,6 +12,7 @@ export default function Student() {
 
   const [selectedStudent, setSelectedStudent] = useState(null)
   const [userName, setUserName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("")
   const [course, setCourse] = useState("")
   const [studentId, setStudentId] = useState(null)
@@ -66,6 +67,7 @@ export default function Student() {
   const [students, setStudents] = useState([])
   const fetchDocs = async () => {
     try {
+      setLoading(true)
       const collectionName = collection(db, "student")
       const docs = await getDocs(collectionName)
       const studentsData = []
@@ -76,7 +78,7 @@ export default function Student() {
         })
       })
       setStudents(studentsData)
-
+      setLoading(false)
       return students
 
     } catch (error) {
@@ -123,11 +125,11 @@ export default function Student() {
     <div>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Dashboard</p>
 
-      <div className="grid lg:grid-cols-3 gap-5 mb-16">
+      {/* <div className="grid lg:grid-cols-3 gap-5 mb-16">
         <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-green-600 h-40 shadow-sm">Total Students <br />{students.length}</div>
         <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-red-600 h-40 shadow-sm">Total Courses <br />{Courses.length}</div>
         <div className="rounded text-white  text-center pt-5 text-2xl font-bold bg-blue-600 h-40 shadow-sm">Attendence <br />20</div>
-      </div>
+      </div> */}
       <div className="grid col-1 bg-white h-auto shadow-sm pb-20">
 
 
@@ -137,7 +139,7 @@ export default function Student() {
 
           <div className='py-8'>
             <label htmlFor='Name' className='pl-10 pr-5 my-1 text-lg'>Name:</label><input className='border rounded my-1 px-3 py-1' id='Name' type="text" placeholder="Enter name" onChange={(e) => setUserName(e.target.value)} /><br />
-            <label htmlFor='id' className='pl-10 pr-5 my-1 text-lg'>StudentId:</label><input className='border  rounded my-1 px-3 py-1' id='id' type="number" placeholder="Enter id" value={studentId} onChange={(e) => setStudentId(e.target.value)} /><br />
+            <label htmlFor='id' className='pl-10 pr-5 my-1 text-lg'>Std Id:</label><input className='border  rounded my-1 px-3 py-1' id='id' type="number" placeholder="Enter id" value={studentId} onChange={(e) => setStudentId(e.target.value)} /><br />
             <label htmlFor='course' className='pl-10 pr-3 my-1 text-lg'>Course:</label><input className='border my-1 rounded px-3 py-1' type="email" placeholder="Enter Course" id='Course' onChange={(e) => setCourse(e.target.value)} /><br />
             <label htmlFor='email' className='pl-10 pr-5 my-1 text-lg'>Email:</label> <input className='border my-1 rounded px-3 py-1' id='email' type="email" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
           </div>
@@ -171,7 +173,13 @@ export default function Student() {
               </tr>
             </thead>
             <tbody>
-              {students.map((student, i) => {
+            {loading ? (
+              <tr className="text-center">
+                <td colSpan="4" className="text-xl text-orange-900 font-bold mt-10">
+                  Loading...
+                </td>
+              </tr>
+            ) : (students.map((student, i) => {
 
                 return <tr key={i} className="bg-white dark:bg-gray-800">
                   <td scope="row" className="px-4 py-4   dark:text-white">
@@ -191,7 +199,7 @@ export default function Student() {
                     <button onClick={() => openModal(student)} className=' text-white bg-red-500 hover:bg-red-600 px-5 py-2 rounded-xl mx-1'>Update</button>
                   </td>
                 </tr>
-              })}
+              }))}
             </tbody>
           </table>
         </div>
